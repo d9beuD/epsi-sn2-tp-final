@@ -47,4 +47,12 @@ class AlbumController extends AbstractController
             'artist' => $artist,
         ]);
     }
+
+    #[Route('/albums/{id}', name: 'show_album')]
+    public function show(Album $album): Response
+    {
+        return $this->render('album/show.html.twig', [
+            'album' => $album,
+        ]);
+    }
 }
