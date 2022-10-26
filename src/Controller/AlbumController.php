@@ -2,7 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Album;
+use App\Repository\AlbumRepository;
+use App\Repository\ArtistRepository;
+use DateTime;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -52,6 +58,27 @@ class AlbumController extends AbstractController
     public function show(Album $album): Response
     {
         return $this->render('album/show.html.twig', [
+            'album' => $album,
+        ]);
+    }
+
+    #[Route('/albums/{id}/edit', name: 'edit_album', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Album $album, ManagerRegistry $doctrine): Response
+    {
+
+        if ($request->getMethod() === 'POST') {
+            $entityManager = $doctrine->getManager();
+
+            $album
+                ->setTitle($request->request->get('title'))
+                ->setIllustrationURL($request->request->get('illustrationURL'))
+                ->setReleaseDate(new DateTime($request->request->get('releaseDate')));
+
+            $entityManager->flush();
+            return $this->redirectToRoute('show_album', ['id' => $album->getId()]);
+        }
+
+        return $this->render('album/edit.html.twig', [
             'album' => $album,
         ]);
     }
