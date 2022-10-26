@@ -8,11 +8,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AlbumController extends AbstractController
 {
-    #[Route('/album', name: 'app_album')]
-    public function index(): Response
+    #[Route('/albums', name: 'show_albums')]
+    public function index(AlbumRepository $albumRepository): Response
     {
+        $albums = $albumRepository->findAll();
+
         return $this->render('album/index.html.twig', [
-            'controller_name' => 'AlbumController',
+            'albums' => $albums,
         ]);
     }
 }

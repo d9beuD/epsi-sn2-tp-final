@@ -3,18 +3,33 @@
 {% block title %}Hello AlbumController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+  <div class="mb-3">
+    <a class="btn btn-primary" href="{{ path('new_album') }}">
+      <i class="fa-solid fa-plus"></i>
+      Ajouter
+    </a>
+  </div>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/Users/d9beud/Documents/music_final/src/Controller/AlbumController.php'|file_link(0) }}">src/Controller/AlbumController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/Users/d9beud/Documents/music_final/templates/album/index.html.twig'|file_link(0) }}">templates/album/index.html.twig</a></code></li>
-    </ul>
-</div>
+  {% if albums|length == 0 %}
+    <div class="alert alert-warning" role="alert">
+      Il n'y a pas encore d'album.
+    </div>
+  {% else %}
+    <div class="row row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-col-lg-5">
+      {% for album in albums %}
+        <div class="col">
+          <div class="card">
+            <img src="{{ album.illustrationURL }}" alt="{{ album.title }} cover" class="card-img-top">
+            <div class="card-body">
+              <h5 class="card-title">{{ album.title }}</h5>
+              <p class="card-text">
+                Album sorti le {{ album.releaseDate|date("d/m/Y") }}
+              </p>
+              <a href="{{ path('show_album', {id: album.id}) }}" class="stretched-link">Voir plus</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
 {% endblock %}
