@@ -1,0 +1,55 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+  <h1>Ajouter un album</h1>
+
+  {% if artist is null %}
+    <div class="alert alert-warning" role="alert">
+      Vous devez d'abord créer un artist avant de pouvoir ajouter un album.
+    </div>
+  {% endif %}
+
+  <form
+    action="{{ path('new_album') }}"
+    method="post"
+    class="mx-auto"
+    style="max-width: 30rem;"
+  >
+    <div class="mb-3">
+      <label for="title">Titre</label>
+      <input
+        type="text"
+        name="title"
+        id="title"
+        class="form-control"
+        placeholder="Titre"
+      >
+    </div>
+    <div class="mb-3">
+      <label for="illustrationURL">Illustration</label>
+      <input
+        type="text"
+        name="illustrationURL"
+        id="illustrationURL"
+        class="form-control"
+        placeholder="URL de l'illustration"
+      >
+    </div>
+    <div class="mb-3">
+      <label for="releaseDate">Date de sortie</label>
+      <input
+        type="date"
+        name="releaseDate"
+        id="releaseDate"
+        class="form-control"
+        placeholder="URL de l'illustration"
+      >
+    </div>
+    <div class="text-end">
+      <button type="submit" class="btn btn-primary">
+        <i class="fa-solid fa-plus"></i>
+        Ajouter
+      </button>
+    </div>
+  </form>
+{% endblock body %}
