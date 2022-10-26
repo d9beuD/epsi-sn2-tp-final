@@ -20,7 +20,10 @@
     <div class="collapse navbar-collapse" id="main-navbar">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a href="/albums" class="nav-link">
+          <a
+            href="{{ path('show_albums') }}"
+            class="nav-link{{ app.request.attributes.get('_route') == 'show_albums' ? ' active' : '' }}"
+          >
             <i class="fa-solid fa-album-collection"></i>
             Albums
           </a>
