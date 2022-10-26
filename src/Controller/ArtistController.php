@@ -22,7 +22,7 @@ class ArtistController extends AbstractController
         ]);
     }
 
-    #[Route('/artist/new', methods: ['GET', 'POST'])]
+    #[Route('/artist/new', name: 'artist_form', methods: ['GET', 'POST'])]
     public function setArtist(Request $request, ArtistRepository $artistRepository, ManagerRegistry $doctrine): Response
     {
         $entityManager = $doctrine->getManager();

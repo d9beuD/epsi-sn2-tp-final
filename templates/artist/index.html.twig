@@ -5,7 +5,7 @@
 {% block body %}
   {% if artist is null %}
     <div class="alert alert-warning" role="alert">
-      Vous n'avez pas encore défini l'artiste. Vous pouvez le faire sur ce <a href="/artist/new">formulaire</a>.
+      Vous n'avez pas encore défini l'artiste. Vous pouvez le faire sur ce <a href="{{ path('artist_form') }}">formulaire</a>.
     </div>
   {% else %}
     <p class="lead">
