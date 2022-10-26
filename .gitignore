@@ -19,3 +19,6 @@
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
 .DS_Store
+
+# Ignore les images enregistrées
+public/images
