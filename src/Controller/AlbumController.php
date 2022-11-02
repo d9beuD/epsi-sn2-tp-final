@@ -38,7 +38,7 @@ class AlbumController extends AbstractController
         if ($request->getMethod() === 'POST') {
             // Si l'artiste n'existe pas encore, on ne peut pas ajouter d'album
             if ($artist === null) {
-                return $this->createAccessDeniedException('Vous devez d\'abord ajouter un artiste');
+                throw $this->createAccessDeniedException('Vous devez d\'abord ajouter un artiste');
             }
 
             //Création du nouvel album

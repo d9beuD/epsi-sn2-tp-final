@@ -25,7 +25,7 @@ class MusicController extends AbstractController
     {
         // Si l'ID de l'album est inconnu (qu'il ne correspond à aucun album dans la base de données)
         if ($album === null) {
-            return $this->createNotFoundException('L\'album n\'existe pas.');
+            throw $this->createNotFoundException('L\'album n\'existe pas.');
         }
 
         if ($request->isMethod('POST')) {
@@ -54,7 +54,7 @@ class MusicController extends AbstractController
     {
         // Si l'ID de la musique est inconnu
         if ($music === null) {
-            return $this->createNotFoundException('La musique n\'existe pas.');
+            throw $this->createNotFoundException('La musique n\'existe pas.');
         }
 
         if ($request->isMethod('POST')) {
