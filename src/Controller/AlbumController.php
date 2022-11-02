@@ -62,7 +62,7 @@ class AlbumController extends AbstractController
         ]);
     }
 
-    #[Route('/albums/{id}/edit', name: 'edit_album', methods: ['GET', 'POST'])]
+    #[Route('/albums/{id}/edit', methods: ['GET', 'POST'], name: 'edit_album')]
     public function edit(Request $request, Album $album, ManagerRegistry $doctrine): Response
     {
 
