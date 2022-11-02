@@ -1,0 +1,41 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+  <h1>Mettre à jour un musique</h1>
+
+  <form
+    action="{{ path('edit_music', {id: music.id}) }}"
+    method="post"
+    class="mx-auto"
+    style="max-width: 30rem;"
+  >
+    <div class="mb-3">
+      <label for="title">Titre</label>
+      <input
+        type="text"
+        value="{{ music.title|default('') }}"
+        name="title"
+        id="title"
+        class="form-control"
+        placeholder="Titre"
+      >
+    </div>
+    <div class="mb-3">
+      <label for="duration">Durée</label>
+      <input
+        type="text"
+        value="{{ music.duration }}"
+        name="duration"
+        id="duration"
+        class="form-control"
+        placeholder="URL de l'illustration"
+      >
+    </div>
+    <div class="text-end">
+      <button type="submit" class="btn btn-primary">
+        <i class="fa-solid fa-save"></i>
+        Mettre à jour
+      </button>
+    </div>
+  </form>
+{% endblock body %}
