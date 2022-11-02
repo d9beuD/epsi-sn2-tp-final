@@ -7,14 +7,31 @@
       <p class="text-secondary">Album sorti le {{ album.releaseDate|date("d/m/Y") }}.</p>
     </div>
     <div class="col">
-      <h2 class="fw-bold d-flex align-items-center">
-        {{ album.title }}
-        <a class="text-secondary small ms-2" href="{{ path('edit_album', {id: album.id}) }}">
-          <i class="fa-solid fa-pencil" data-fa-transform="shrink-2"></i>
-        </a>
+      <h2 class="fw-bold row align-items-center">
+        {# Le titre de l'album #}
+        <div class="col">
+          {{ album.title }}
+        </div>
+
+        {# Le menu pour éditer l'album #}
+        <div class="col-auto">
+          <div class="dropdown">
+            <a href="#" class="text-danger rounded-pill" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fa-solid fa-ellipsis fa-fw"></i>
+            </a>
+            <ul class="dropdown-menu">
+              <li>
+                <a class="dropdown-item" href="{{ path('edit_album', {id: album.id}) }}">
+                  <i class="fa-solid fa-pen-to-square fa-fw"></i>
+                  Éditer l'album
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
       </h2>
 
-      <div class="mb-2">
+      <div class="mb-3">
         <button class="btn btn-danger">
           <i class="fa-solid fa-play"></i>
           Lecture
@@ -23,16 +40,42 @@
           <i class="fa-solid fa-shuffle"></i>
           Ordre aléatoire
         </button>
-        <button class="btn btn-secondary">
+        <a href="{{ path('add_music', {id: album.id}) }}" class="btn btn-secondary">
           <i class="fa-solid fa-plus"></i>
           Ajouter un morceau
-        </button>
+        </a>
       </div>
 
       {% if album.musics|length != 0 %}
-        <ul class="list-unstyled">
+        <ul class="list-unstyled music-list container-fluid">
           {% for music in album.musics %}
-            <li>{{ music.title }}</li>
+            <li class="row music-item py-1 rounded">
+              {# L'index de la musique dans l'album #}
+              <div class="col-auto text-end px-0" style="width: 2rem;">{{ loop.index }}</div>
+
+              {# Le titre de la musique #}
+              <div class="col">{{ music.title }}</div>
+
+              {# La durée lisible par un humain #}
+              <div class="col-auto">{{ music.humanReadableDuration }}</div>
+
+              {# Le menu pour éditer la musique #}
+              <div class="col-auto">
+                <div class="dropdown">
+                  <a href="#" class="text-danger rounded-pill" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fa-solid fa-ellipsis fa-fw" data-fa-transform="grow-5"></i>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <a class="dropdown-item" href="{{ path('edit_music', {id: music.id}) }}">
+                        <i class="fa-solid fa-pen-to-square fa-fw"></i>
+                        Éditer le morceau
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </li>
           {% endfor %}
         </ul>
       {% else %}
