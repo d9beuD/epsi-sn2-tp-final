@@ -45,6 +45,32 @@ class Music
         return $this->duration;
     }
 
+    public function getHumanReadableDuration(): string
+    {
+        $seconds = $this->getDuration();
+        $hours = floor($seconds / 3600);
+        $minutes = floor(($seconds / 60) % 60);
+        $seconds = $seconds % 60;
+
+        $duration = '';
+
+        if ($hours) {
+            $duration .= "$hours:";
+
+            if ($minutes < 10) {
+                $minutes = "0$minutes";
+            }
+        }
+
+        if ($seconds < 10) {
+            $seconds = "0$seconds";
+        }
+
+        $duration .= "$minutes:$seconds";
+
+        return $duration;
+    }
+
     public function setDuration(int $duration): self
     {
         $this->duration = $duration;
