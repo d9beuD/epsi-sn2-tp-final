@@ -15,6 +15,7 @@ class ArtistController extends AbstractController
     #[Route('/', name: 'home')]
     public function index(ManagerRegistry $doctrine): Response
     {
+        // Sélection de l'unique artiste
         $artist = $doctrine->getRepository(Artist::class)->find(1);
 
         return $this->render('artist/index.html.twig', [
@@ -30,6 +31,7 @@ class ArtistController extends AbstractController
 
 
         if ($request->getMethod() === 'POST') {
+            // Si l'artiste n'existe pas encore, on le crée. Sinon, on le met à jour
             if ($artist === null) {
                 $artist = new Artist();
             }
@@ -41,9 +43,11 @@ class ArtistController extends AbstractController
             $entityManager->persist($artist); // Ne fonctionne que si l'artiste n'existe pas déjà
             $entityManager->flush();
 
+            // On redirige sur la page d'accueil
             return $this->redirectToRoute('home');
         }
 
+        // Affichage du formulaire
         return $this->render('artist/new.html.twig', [
             'artist' => $artist,
         ]);

@@ -39,9 +39,11 @@ class MusicController extends AbstractController
             $entityManager->persist($music);
             $entityManager->flush();
 
+            // On redirige vers l'album
             return $this->redirectToRoute('show_album', ['id' => $album->getId()]);
         }
 
+        // On affiche le formulaire d'ajout d'une musique
         return $this->render('music/new.html.twig', [
             'album' => $album,
         ]);
@@ -63,11 +65,13 @@ class MusicController extends AbstractController
 
             $entityManager->flush();
 
+            // On redirige vers l'album
             return $this->redirectToRoute('show_album', [
                 'id' => $music->getAlbum()->getId()
             ]);
         }
 
+        // Affichage du formulaire d'édition d'une musique
         return $this->render('music/edit.html.twig', [
             'music' => $music,
         ]);
