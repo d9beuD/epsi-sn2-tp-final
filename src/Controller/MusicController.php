@@ -12,14 +12,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class MusicController extends AbstractController
 {
-    #[Route('/music', name: 'app_music')]
-    public function index(): Response
-    {
-        return $this->render('music/index.html.twig', [
-            'controller_name' => 'MusicController',
-        ]);
-    }
-
     #[Route('/album/{id}/musics/new', methods: ['GET', 'POST'], name: 'add_music')]
     public function add(Request $request, ManagerRegistry $doctrine, ?Album $album = null): Response
     {
