@@ -2,11 +2,11 @@
 
 {% block body %}
   <div class="row">
-    <div class="col-3">
+    <div class="col-sm-3">
       <img src="{{ album.illustrationURL }}" alt="{{ album.title }} cover" class="img-fluid rounded shadow mb-2">
       <p class="text-secondary">Album sorti le {{ album.releaseDate|date("d/m/Y") }}.</p>
     </div>
-    <div class="col">
+    <div class="col-sm-9">
       <h2 class="fw-bold row align-items-center">
         {# Le titre de l'album #}
         <div class="col">
@@ -31,16 +31,16 @@
         </div>
       </h2>
 
-      <div class="mb-3">
-        <button class="btn btn-danger">
+      <div class="mb-2">
+        <button class="btn btn-danger mb-1">
           <i class="fa-solid fa-play"></i>
           Lecture
         </button>
-        <button class="btn btn-danger">
+        <button class="btn btn-danger mb-1">
           <i class="fa-solid fa-shuffle"></i>
           Ordre aléatoire
         </button>
-        <a href="{{ path('add_music', {id: album.id}) }}" class="btn btn-secondary">
+        <a class="btn btn-secondary mb-1" href="{{ path('add_music', {id: album.id}) }}">
           <i class="fa-solid fa-plus"></i>
           Ajouter un morceau
         </a>
@@ -49,12 +49,12 @@
       {% if album.musics|length != 0 %}
         <ul class="list-unstyled music-list container-fluid">
           {% for music in album.musics %}
-            <li class="row music-item py-1 rounded">
+            <li class="row music-item py-1 rounded position-relative" style="min-width: 0;">
               {# L'index de la musique dans l'album #}
               <div class="col-auto text-end px-0" style="width: 2rem;">{{ loop.index }}</div>
 
               {# Le titre de la musique #}
-              <div class="col">{{ music.title }}</div>
+              <div class="col text-truncate ms-2">{{ music.title }}</div>
 
               {# La durée lisible par un humain #}
               <div class="col-auto">{{ music.humanReadableDuration }}</div>
