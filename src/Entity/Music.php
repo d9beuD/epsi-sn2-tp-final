@@ -13,7 +13,7 @@ class Music
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 30)]
+    #[ORM\Column(length: 60)]
     private ?string $title = null;
 
     #[ORM\Column]
