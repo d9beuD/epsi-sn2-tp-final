@@ -25,7 +25,10 @@
               <p class="card-text">
                 Album sorti le {{ album.releaseDate|date("d/m/Y") }}
               </p>
-              <a href="{{ path('show_album', {id: album.id}) }}" class="stretched-link">Voir plus</a>
+              <a href="{{ path('show_album', {id: album.id}) }}" class="stretched-link text-decoration-none">
+                <i class="fa-solid fa-eye"></i>
+                Voir plus
+              </a>
             </div>
           </div>
         </div>
