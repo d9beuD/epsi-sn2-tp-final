@@ -22,8 +22,8 @@ DirectoryIndex index.php
 
     RewriteCond %{HTTP_HOST} !^localhost [NC]
     RewriteCond %{REMOTE_ADDR} !^127\.0\.0\.1$
-    RewriteCond %{HTTPS} !=on
-    RewriteRule .? https://%{HTTP_HOST}%{REQUEST_URI} [R,L]
+    RewriteCond %{HTTPS} =off
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
     # Determine the RewriteBase automatically and set it as environment variable.
     # If you are using Apache aliases to do mass virtual hosting or installed the
