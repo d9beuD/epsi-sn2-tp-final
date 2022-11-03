@@ -1,5 +1,7 @@
 {% extends "base.html.twig" %}
 
+{% block title %}{{ artist ? 'Mettre à jour' : 'Ajouter' }} un artiste{% endblock title %}
+
 {% block body %}
   <h1>{{ artist ? 'Mettre à jour' : 'Ajouter' }} un artiste</h1>
   <form action="/artist/new" method="post" class="mx-auto" style="max-width: 30rem;">
