@@ -1,4 +1,4 @@
-FROM php:8.1-cli
+FROM bitnami/symfony:6.1
 
 RUN apt-get update -y && apt-get install -y libmcrypt-dev symfony-cli
 
