@@ -1,0 +1,27 @@
+pipeline:
+  deploy:
+    image: plugins/docker
+    settings:
+      registry: registry.h8l.io
+      repo: registry.h8l.io/codevia/music
+      username:
+        from_secret: REGISTRY_USERNAME
+      password:
+        from_secret: REGISTRY_PASSWORD
+      auto_tag: true
+
+  deploy-dev:
+    when:
+      branch:
+        exclude: main
+      event:
+        exclude: tag
+    image: plugins/docker
+    settings:
+      registry: registry.h8l.io
+      repo: registry.h8l.io/codevia/music
+      username:
+        from_secret: REGISTRY_USERNAME
+      password:
+        from_secret: REGISTRY_PASSWORD
+      tags: dev
