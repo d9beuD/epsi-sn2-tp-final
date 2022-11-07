@@ -9,8 +9,10 @@ RUN docker-php-ext-install pdo mbstring zip
 WORKDIR /app
 COPY . /app
 
-RUN composer install
+# RUN composer install
+# RUN symfony --version
+# RUN /bin/sh -c symfony --version
 
 EXPOSE 8000
 # CMD php bin/console server:run 0.0.0.0:8000
-CMD symfony server:start
+CMD /tmp/symfony server:start
