@@ -1,19 +1,59 @@
-FROM php:8.1
+FROM php:8.1-apache
 
 # Installation de symfony-cli
 RUN curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.deb.sh' | bash
 
-RUN apt-get update -y && apt-get install -y libmcrypt-dev libonig-dev libzip-dev symfony-cli
+# Installation des dépendances d'environnement
+RUN apt-get update -y && apt-get install -y \
+    libmcrypt-dev \
+    libonig-dev \
+    libzip-dev \
+    libicu-dev \
+    libpng-dev \
+    libpq-dev \
+    libfreetype6-dev \
+    libjpeg62-turbo-dev \
+    cron \
+    curl \
+    nano \
+    unzip \
+    wget \
+    git-core
 
+# Installation de Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-RUN docker-php-ext-install pdo pdo_mysql mbstring zip
 
+# Installation des extensions PHP
+RUN docker-php-ext-install \
+    pdo \
+    pdo_mysql \
+    mbstring \
+    zip \
+    intl
+
+# Sélection du dossier de travail
 WORKDIR /app
 COPY . /app
+RUN chown -R www-data:www-data /app
 
+# Installation des dépendances de Composer
 RUN composer install
 
-EXPOSE 8000
-# CMD php bin/console server:run 0.0.0.0:8000
-# CMD curl -sS https://get.symfony.com/cli/installer | bash && /tmp/symfony server:start
-CMD symfony server:start
+# Création d'un fichier de "démarrage" du serveur de test
+COPY ./docker/entrypoint.sh /usr/local/bin/
+RUN chmod 777 /usr/local/bin/entrypoint.sh \
+    && ln -s /usr/local/bin/entrypoint.sh /
+
+# Configuration de Apache
+COPY ./docker/000-default.conf /etc/apache2/sites-available/000-default.conf
+RUN sed -i "s/Listen 80/Listen ${PORT:-8080}/g" /etc/apache2/ports.conf
+
+# Configuration de PHP
+COPY ./docker/php.ini /usr/local/etc/php/php.ini
+
+USER www-data:www-data
+EXPOSE 8080
+
+# Démarrage du serveur de test
+ENTRYPOINT ["/entrypoint.sh"]
+# CMD ["symfony","server:start"]
