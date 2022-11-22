@@ -47,6 +47,12 @@ RUN chmod 777 /usr/local/bin/entrypoint.sh \
 # Configuration de Apache
 COPY ./docker/000-default.conf /etc/apache2/sites-available/000-default.conf
 RUN sed -i "s/Listen 80/Listen ${PORT:-8080}/g" /etc/apache2/ports.conf
+RUN a2enmod rewrite
+RUN a2enmod proxy
+RUN a2enmod proxy_http
+RUN a2enmod proxy_balancer
+RUN a2enmod lbmethod_byrequests
+RUN a2enmod negotiation
 
 # Configuration de PHP
 COPY ./docker/php.ini /usr/local/etc/php/php.ini
