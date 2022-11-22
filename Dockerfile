@@ -58,6 +58,9 @@ RUN a2enmod negotiation
 COPY ./docker/php.ini /usr/local/etc/php/php.ini
 
 USER www-data:www-data
+RUN rm .env
+RUN touch .env
+RUN composer dump-env .env
 EXPOSE 8080
 
 # Démarrage du serveur de test
